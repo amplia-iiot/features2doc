@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "async": "^0.2.9",
-    "commander": "^5.1.0",
+    "commander": "^8.2.0",
     "glob": "^7.1.6",
     "handlebars": "^4.7.6",
     "i18next": "^19.4.5",

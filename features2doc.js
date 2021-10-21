@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 // MODULES
-const commander = require('commander');
+const { program } = require('commander');
 const fs = require('fs');
 const glob = require('glob');
 const handlebars = require('handlebars');
@@ -14,62 +14,65 @@ const config = require('./config');
 const pdf = require('./html2pdf');
 
 // options
-commander
+program
   .version(require('./package.json').version)
-  .option('-a, --author [string]', 'The author name used in header (default: Author Name)')
-  .option('-b, --break-before-word [string]', 'create a line break before every occurrance of this word in the background (default: null)')
-  .option('-d, --product-description [string]', 'The description of your product used in header (default: My Product Description)')
-  .option('-g, --generate-pdf [false|true]', ' generate PDF file(default: true)')
-  .option('-l, --lang [en|string]', 'language used in feature files (default: en)')
-  .option('-p, --product-name [string]', 'The name of your product used in headline and header (default: My Product Name)')
-  .option('-t, --templates-dir [path]', 'read the files doc_template.html, feature_template.html and style.css from path (default: default/templates)')
-  .option('-w, --tags [string]', 'Filters the final output to this categories/tag')
-  .option('-m, --date-format [string]', 'date mask for document date in moment lib format (default: LL)')
+  .option('-a, --author <string>', 'The author name used in header (default: Author Name)')
+  .option('-b, --break-before-word <string>', 'create a line break before every occurrance of this word in the background (default: null)')
+  .option('-d, --product-description <string>', 'The description of your product used in header (default: My Product Description)')
+  .option('-g, --generate-pdf <false|true>', ' generate PDF file(default: true)')
+  .option('-l, --lang <en|string>', 'language used in feature files (default: en)')
+  .option('-p, --product-name <string>', 'The name of your product used in headline and header (default: My Product Name)')
+  .option('-t, --templates-dir <path>', 'read the files doc_template.html, feature_template.html and style.css from path (default: default/templates)')
+  .option('-w, --tags <string...>', 'Filters the final output to this categories/tag')
+  .option('-m, --date-format <string>', 'date mask for document date in moment lib format (default: LL)')
   .option('-x, --debug', 'output extra debugging')
-  .option('-o, --output-folder [path]', 'Send output to folder path (default: output)')
+  .option('-o, --output-folder <path>', 'Send output to folder path (default: output)')
 
 // commands
-commander
-  .requiredOption('-i, --input-dir [path]', 'Read feature files from path (default: examples/features)')
+program
+  .requiredOption('-i, --input-dir <path>', 'Read feature files from path (default: examples/features)')
   .command('create')
-  .option('-a, --author [string]', 'The author name used in header (default: Author Name)')
-  .option('-b, --break-before-word [string]', 'create a line break before every occurrance of this word in the background (default: null)')
-  .option('-d, --product-description [string]', 'The description of your product used in header (default: My Product Description)')
-  .option('-g, --generate-pdf [false|true]', ' generate PDF file(default: true)')
-  .option('-l, --lang [en|pt|string]', 'language used in feature files (default: en)')
-  .option('-p, --product-name [string]', 'The name of your product used in headline and header (default: My Product Name)')
-  .option('-t, --templates-dir [path]', 'read the files doc_template.html, feature_template.html and style.css from path (default: default/templates)')
-  .option('-w, --tags [array]', 'Filters the final output to this categories/tag')
-  .option('-m, --date-format [string]', 'date mask for document date in moment lib format (default: LL)')
+  .option('-a, --author <string>', 'The author name used in header (default: Author Name)')
+  .option('-b, --break-before-word <string>', 'create a line break before every occurrance of this word in the background (default: null)')
+  .option('-d, --product-description <string>', 'The description of your product used in header (default: My Product Description)')
+  .option('-g, --generate-pdf <false|true>', ' generate PDF file(default: true)')
+  .option('-l, --lang <en|string>', 'language used in feature files (default: en)')
+  .option('-p, --product-name <string>', 'The name of your product used in headline and header (default: My Product Name)')
+  .option('-t, --templates-dir <path>', 'read the files doc_template.html, feature_template.html and style.css from path (default: default/templates)')
+  .option('-w, --tags <string...>', 'Filters the final output to this categories/tag')
+  .option('-m, --date-format <string>', 'date mask for document date in moment lib format (default: LL)')
   .option('-x, --debug', 'output extra debugging')
-  .option('-o, --output-folder [path]', 'Send output to folder path (default: output)')
+  .option('-o, --output-folder <path>', 'Send output to folder path (default: output)')
   .description('Create HTML or PDF from feature files')
   .action(createCommand);
 
 // Check if called without command
 if (process.argv.length < 3) {
-  commander.help();
+  program.help();
 }
 
 function resolvePath(folderPath) {
   return path.resolve(folderPath.replace(/^["|'](.*)["|']$/, '$1'));
 }
 // parse commands
-commander.parse(process.argv);
+program.parse(process.argv);
+
 //debug commander
-if (commander.debug) console.log(commander.opts());
+if (program.debug) console.log(program.opts());
 
 function setup(done) {
-  config.INPUTDIR = resolvePath(commander.inputDir) || config.INPUTDIR;
-  config.TEMPLATESDIR = commander.templatesDir || config.TEMPLATESDIR;
-  config.OUTPUTFOLDER = resolvePath(commander.outputFolder || config.OUTPUTFOLDER);
-  config.LANGUAGE = commander.lang || config.LANGUAGE;
-  config.AUTHOR = commander.author || config.AUTHOR;
-  config.PRODUCTNAME = commander.productName || config.PRODUCTNAME;
-  config.PRODUCTDESCRIPTION = commander.productDescription || config.PRODUCTDESCRIPTION;
-  config.BREAKBEFOREWORD = commander.breakBeforeWord || config.BREAKBEFOREWORD;
-  config.GENERATEPDF = commander.generatePdf || config.GENERATEPDF;
-  config.TAGS = commander.tags?commander.tags : config.TAGS;
+  var programOptions = program.opts();
+  
+  config.INPUTDIR = resolvePath(programOptions.inputDir) || config.INPUTDIR;
+  config.TEMPLATESDIR = programOptions.templatesDir || config.TEMPLATESDIR;
+  config.OUTPUTFOLDER = resolvePath(programOptions.outputFolder || config.OUTPUTFOLDER);
+  config.LANGUAGE = programOptions.lang || config.LANGUAGE;
+  config.AUTHOR = programOptions.author || config.AUTHOR;
+  config.PRODUCTNAME = programOptions.productName || config.PRODUCTNAME;
+  config.PRODUCTDESCRIPTION = programOptions.productDescription || config.PRODUCTDESCRIPTION;
+  config.BREAKBEFOREWORD = programOptions.breakBeforeWord || config.BREAKBEFOREWORD;
+  config.GENERATEPDF = programOptions.generatePdf || config.GENERATEPDF;
+  config.TAGS = programOptions.tags?programOptions.tags : config.TAGS;
   config.HEADERTEMPLATE = config.TEMPLATESDIR + '/header_template.html';
   config.FOOTERTEMPLATE = config.TEMPLATESDIR + '/footer_template.html';
   config.COVERTEMPLATE = config.TEMPLATESDIR + '/cover_template.html';
@@ -77,7 +80,7 @@ function setup(done) {
   config.FEATURETEMPLATE = config.TEMPLATESDIR + '/feature_template.html';
   config.RESUMETEMPLATE = config.TEMPLATESDIR + '/resume_template.html';
   config.LOGOIMAGE = config.TEMPLATESDIR + '/logo.png';
-  config.DATEFORMAT = commander.dateFormat || config.DATEFORMAT; 
+  config.DATEFORMAT = programOptions.dateFormat || config.DATEFORMAT; 
 
   i18n.init({
     lng: config.LANGUAGE,
@@ -422,6 +425,6 @@ function i18nStringContains(orgstring, i18nkey) {
 
 module.exports = {
   output: [
-    commander
+    program
   ]
 }
