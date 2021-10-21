@@ -12,7 +12,13 @@ You can focus on editing the actual feature files and let features2 make the fea
 ---
 ## Usage
 
+```
+yarn install
+```
+
+```
 yarn run create -i "path-to-features-folder or feature-file" -o "path-output-files" -l "language used in feature files" -p "Your Product Name" -d  "Your Product Description"
+```
 
 ### Real world usage
 
