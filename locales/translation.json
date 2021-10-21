@@ -1,0 +1,34 @@
+{
+	"en": {
+	   "translation": {
+			"background": [
+				"Background:"
+			],
+			"examples": [
+				"Examples:"
+			],
+			"feature": [
+				"Feature:",
+				"Business Need:",
+				"Ability:"
+			],
+			"name": "English",
+			"native": "English",
+			"scenario": [
+				"Scenario:",
+				"Background:",
+				"Scenario Outline:",
+				"Scenario Template:"
+			],
+			"allsteps": [
+				"* ",
+				"And ",
+				"Then ",
+				"When ",
+				"Given ",
+				"But ",
+				"Examples:"
+			]
+		}
+	}
+}

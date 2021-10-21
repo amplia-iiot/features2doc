@@ -1,0 +1,31 @@
+
+<table class="table is-fullwidth">
+   <thead>
+      <tr>
+         <th colspan="2" style="text-align:left;">
+            <span class="is-size-4">{{name}}</span>
+            {{#if tags}}
+               {{#each tags}}
+                  <span class="tag">{{ this }}</span>
+               {{/each}}
+            {{/if}}
+         </td>
+      </tr>
+   </thead>
+   <tbody>
+      {{#each features}}
+      <tr>
+         <td style="width:40%;">
+            <strong><a href="#{{anchor}}">{{{name}}}</a></strong><br/>
+            <small>{{{background}}}</small>
+         </td>
+         <td style="width:60%;">
+            {{#each scenarios}}
+               {{{name}}}<br/>
+            {{/each}}
+         </td>
+      </tr>
+      {{/each}}
+   </tbody>
+</table>
+<br/><br/>

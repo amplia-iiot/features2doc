@@ -1,0 +1,16 @@
+<a name="{{anchor}}"></a>
+<p>
+   <div class="is-pulled-right"><a href="#top_top_top">To top</a></div>
+   <span class="title is-4 has-text-weight-bold">{{{name}}}</span><br />
+   <small class="has-text-grey-dark">{{{background}}}</small>
+</p>
+
+{{#each scenarios}}
+<div class="box">
+   {{#if sidenote}}
+   <aside>{{sidenote}}</aside>
+   {{/if}}
+   {{{content}}}
+</div>
+{{/each}}   
+

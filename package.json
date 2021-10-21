@@ -1,0 +1,41 @@
+{
+  "name": "features2doc",
+  "version": "1.0.0",
+  "description": "features2doc is a simple script that **creates HTML or PDF based documentation from Cucumber features**.",
+  "main": "features2doc.js",
+  "preferGlobal": true,
+  "directories": {
+    "example": "examples"
+  },
+  "dependencies": {
+    "async": "^0.2.9",
+    "commander": "^5.1.0",
+    "glob": "^7.1.6",
+    "handlebars": "^4.7.6",
+    "i18next": "^19.4.5",
+    "line-reader": "^0.2.3",
+    "moment": "^2.0.0",
+    "puppeteer": "^10.4.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "create": "node features2doc.js create"
+  },
+  "bin": {
+    "features2doc": "features2doc.js"
+  },
+  "author": "Amplía",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/deovan/features2.git"
+  },
+  "keywords": [
+    "features",
+    "cucumber",
+    "html",
+    "pdf",
+    "gherkin"
+  ],
+  "homepage": "https://bitbucket.org/deovan/features2#readme"
+}
