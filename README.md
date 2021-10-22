@@ -6,8 +6,8 @@ features2doc is a simple script that **creates HTML and PDF based documentation 
 Note that the documentation is **generated from the source Cucumber feature files, and NOT from the test results** (there
 are plenty of other tools that can do that).
 
-Use features2 when you want to **create a nice looking requirements specification**, that you can email to your customer.
-You can focus on editing the actual feature files and let features2 make the features presentable to your customers.
+Use features2doc when you want to **create a nice looking requirements specification**, that you can email to your customer.
+You can focus on editing the actual feature files and let features2doc make the features presentable to your customers.
 
 ---
 ## Usage
@@ -26,9 +26,9 @@ Have a look at the available switches:
 
 ```
 -i, --input-dir [path]              Read feature files from path. This is required.
--l, --lang [en|string]              Language used in feature files (default: en, more)
+-l, --lang [en|string]              Language used in feature files (default: en**)
 -o, --output-file [path]            Send output to folder relative path. This is required.
--a, --author [string]               The author name used in header (default: John Doe)
+-a, --author [string]               The author name used in header (default: The Author)
 -b, --break-before-word [string]    Create a line break before every occurrence of this word in the background (default: null)
 -d, --product-description [string]  The description of your product used in header (default: My Product Description)')
 -g, --generate-pdf [false|true]     Is generate PDF file(default: true)
@@ -43,7 +43,7 @@ Have a look at the available switches:
 ```
 ---
 
-## Languages Support
+## **Languages Support
 
 You can add more languages in the *translation.json* file under your 2 digit language code. Copy from EN language and modify items following the same syntax in order to support your language.
 
